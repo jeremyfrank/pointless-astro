@@ -1,7 +1,60 @@
 ---
 import Layout from '../layouts/Layout.astro'
+const url = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}/api/projects`
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+}
+const res = await fetch(url, options)
+const posts = await res.json()
 ---
 
-<Layout title="Astro Blog">
-  <h1>Astro</h1>
+<Layout title="Pointless Corp.">
+  <section id="hero" class="hero">
+    <!-- TODO -->
+    <h1 class="hero__hdr">Hero Text</h1>
+  </section>
+
+  <section id="about" class="section--textured">
+    <ul class="about__list">
+      <li class="heading-icon--tools">Tools</li>
+      <li class="heading-icon--experiments">Experiments</li>
+      <li class="heading-icon--stunts">Stunts</li>
+    </ul>
+
+    <div class="about__statement">
+      <div class="text">
+        <!-- TODO -->
+        Body Text
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2 class="projects__hdr">Projects</h2>
+
+    <!-- TODO: Project Filters -->
+
+    <div class="projects__wrapper">
+      <ul class="projects__list">
+        {projects.docs?.map((project) => <ProjectCard project={project} />)}
+      </ul>
+    </div>
+
+    <!-- TODO: Show More Button -->
+  </section>
+
+  <!-- TODO: Anything below the project cards list -->
+</Layout>
+
+<style>
+  .hero {
+    background-color: #888;
+    background-image: url('//picsum.photos/id/774/640/423?grayscale');
+
+    @media (min-width: 641px) {
+      background-image: url('//picsum.photos/id/774/2880/1900?grayscale');
+    }
+  </ul>
 </Layout>
