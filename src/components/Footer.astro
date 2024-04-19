@@ -1,0 +1,59 @@
+---
+type Props = {
+  inverse: boolean
+}
+
+const { inverse } = Astro.props as Props
+---
+
+<footer id="footer" class:list={[{ 'footer-home': !inverse }]}>
+  {
+    !inverse && (
+      <img
+        class="footer__logo"
+        src="/assets/images/svgs/pointless-logo-large.svg"
+        alt="Pointless Corp. Logo"
+      />
+    )
+  }
+
+  {
+    inverse && (
+      <img
+        class="footer__logo"
+        src="/assets/images/svgs/pointless-logo-large--white.svg"
+        alt="Pointless Corp. Logo"
+      />
+    )
+  }
+
+  <p class="footer__tagline">
+    The innovation lab at <a href="http://viget.com">Viget</a>
+  </p>
+
+  <ul class="footer__social">
+    <li>
+      <a href="http://twitter.com/pointlesscorp">
+        <span class="screen-reader">Twitter</span>
+        <span class="icon">
+          <img
+            src="/assets/images/svgs/icon-twitter.svg"
+            loading="lazy"
+            alt=""
+          />
+        </span>
+      </a>
+    </li>
+  </ul>
+
+  <p class="footer__copyright">
+    © {new Date().getFullYear()} Pointless Corp.
+  </p>
+</footer>
+
+<style>
+  .footer__social img {
+    filter: invert(1);
+    margin: 0 auto;
+  }
+</style>

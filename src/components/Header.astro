@@ -1,0 +1,31 @@
+---
+type Props = {
+  home: boolean
+}
+
+const { home } = Astro.props as Props
+---
+
+<header id="header">
+  <div class="header__wrapper">
+    {home && <h1 class="header__logo">Pointless Corp.</h1>}
+
+    {
+      !home && (
+        <a href="/" class="header__logo">
+          Pointless Corp.
+        </a>
+      )
+    }
+
+    <nav>
+      <ul class="header__nav">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
