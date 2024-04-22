@@ -1,0 +1,43 @@
+---
+type Props = {
+  // TODO: use generated Payload types here
+  // project: Project
+  project: any
+}
+
+const { project } = Astro.props as Props
+const { title, tagline, slug, icon, linkColor, backgroundColor } = project
+
+const projectTypeSlug = project.type?.title.toLowerCase()
+const { default: svg } = await import(
+  `../../public/assets/images/svgs/stamp-${projectTypeSlug}.svg?raw`
+)
+
+const iconUrl = icon
+  ? `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${project.icon.url}`
+  : ''
+
+const bgColor = backgroundColor || project.type.backgroundColor
+const anchorColor = linkColor || project.type.linkColor
+
+console.log(project)
+---
+
+<li
+  class:list={['projects__list__item', `type--${projectTypeSlug}`]}
+  data-category={projectTypeSlug}
+  style={`background-color: ${bgColor};`}
+>
+  <a href={slug}>
+    {icon && <img src={iconUrl} alt="" class="projects__list__icon" />}
+
+    <div class="projects__list__content">
+      <h3 class="projects__list__hdr">{title}</h3>
+      <p class="projects__list__tagline">{tagline}</p>
+    </div>
+
+    <div class="projects__list__stamp" style={`fill: ${anchorColor}`}>
+      <Fragment set:html={svg} />
+    </div>
+  </a>
+</li>
