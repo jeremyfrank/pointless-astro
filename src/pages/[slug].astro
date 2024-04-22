@@ -1,0 +1,157 @@
+---
+import { format } from 'date-fns'
+import Layout from '@/layouts/Layout.astro'
+import MoreProjectsList from '@/components/MoreProjectsList.astro'
+
+type Props = {
+  // TODO: use generated Payload types here
+  // project: Project
+  project: any
+}
+
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+}
+
+export async function getStaticPaths() {
+  const url = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}/api/projects`
+  let data = await fetch(url)
+  let projects = await data.json()
+
+  return projects.docs.map((project) => {
+    return {
+      params: { slug: project.slug },
+      props: { project },
+    }
+  })
+}
+
+const { project } = Astro.props
+const {
+  title,
+  logo,
+  icon,
+  type,
+  url,
+  twitter,
+  launchDate,
+  retiredDate,
+  description,
+  backgroundColor,
+  textColor,
+  linkColor,
+  accentColor,
+} = project
+
+const displayLogo = logo || icon || type.icon
+const logoUrl = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${displayLogo.url}`
+---
+
+<Layout title={title} backgroundColor={backgroundColor} textColor={textColor}>
+  <div class="project">
+    <h1 class="project__logo">
+      <img src={logoUrl} alt={title} />
+    </h1>
+
+    <ul class="project__meta">
+      {
+        url && (
+          <li>
+            <strong class="project__meta__label">Visit</strong>
+            <a href="{url}" class="project__meta__value">
+              {new URL(url).hostname}
+            </a>
+          </li>
+        )
+      }
+      {
+        twitter && (
+          <li>
+            <strong class="project__meta__label">Follow</strong>
+            <a
+              href={`http://twitter.com/${twitter}`}
+              class="project__meta__value"
+            >
+              @{twitter}
+            </a>
+          </li>
+        )
+      }
+      {
+        type && (
+          <li>
+            <strong class="project__meta__label">Type</strong>
+            <span class="project__meta__value">{type.title}</span>
+          </li>
+        )
+      }
+      {
+        launchDate && (
+          <>
+            <li>
+              <strong class="project__meta__label">Launched</strong>
+              <span class="project__meta__value">
+                {format(launchDate, 'MM/yyyy')}
+              </span>
+            </li>
+            <li>
+              <strong class="project__meta__label">Status</strong>
+              <span class="project__meta__value">
+                {retiredDate ? 'Archived' : 'Active'}
+              </span>
+            </li>
+          </>
+        )
+      }
+    </ul>
+
+    <div class="project__description">
+      <div class="text">
+        <!-- TODO: need to incorporate serializing json data from rich text fields -->
+        <!-- <Fragment set:html={description} /> -->
+      </div>
+
+      <!-- TODO: blocks -->
+      <!-- TODO: process -->
+      <!-- TODO: related content -->
+
+      <!--  -->
+      <MoreProjectsList />
+    </div>
+  </div>
+</Layout>
+
+<style define:vars={{ backgroundColor, textColor, linkColor, accentColor }}>
+  a,
+  .project__meta__value {
+    color: var(--linkColor);
+  }
+
+  .slider__nav li {
+    background-color: var(--backgroundColor);
+  }
+
+  .slider__nav button:before {
+    background-color: var(--linkColor);
+  }
+
+  .slider__nav .current:before {
+    border-color: var(--linkColor);
+  }
+
+  .project__meta,
+  .project__meta li,
+  .project__meta__label {
+    border-color: var(--accentColor);
+  }
+
+  .project__example__circle {
+    fill: var(--accentColor);
+  }
+
+  .project__related__source {
+    color: var(--textColor);
+  }
+</style>

@@ -6,21 +6,17 @@ type Props = {
 }
 
 const { project } = Astro.props as Props
-const { title, tagline, slug, icon, linkColor, backgroundColor } = project
+const { title, tagline, slug, linkColor, backgroundColor } = project
 
 const projectTypeSlug = project.type?.title.toLowerCase()
 const { default: svg } = await import(
   `../../public/assets/images/svgs/stamp-${projectTypeSlug}.svg?raw`
 )
 
-const iconUrl = icon
-  ? `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${project.icon.url}`
-  : ''
-
+const icon = project.icon || project.type?.icon
+const iconUrl = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${icon.url}`
 const bgColor = backgroundColor || project.type.backgroundColor
 const anchorColor = linkColor || project.type.linkColor
-
-console.log(project)
 ---
 
 <li

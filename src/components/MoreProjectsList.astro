@@ -1,0 +1,26 @@
+---
+const url = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}/api/projects`
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+}
+const res = await fetch(url, options)
+const projects = await res.json()
+---
+
+<div class="project__module">
+  <div class="project__related">
+    <h2 class="project__related__hdr">More Pointless Projects</h2>
+
+    <ul class="project__related__list--columns">
+      {
+        projects.docs.map((project) => (
+          <li>
+            <a href={`/${project.slug}`}>{project.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

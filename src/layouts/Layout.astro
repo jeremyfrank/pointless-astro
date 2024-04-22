@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 
+const { title, backgroundColor, textColor } = Astro.props
 const isHomepage = Astro.url.pathname === '/'
 ---
 
@@ -24,3 +25,10 @@ const isHomepage = Astro.url.pathname === '/'
     <Footer inverse={!isHomepage} />
   </body>
 </html>
+
+<style define:vars={{ backgroundColor, textColor }}>
+  body {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+  }
+</style>
