@@ -1,0 +1,19 @@
+---
+type Props = {
+  id: string
+  url: string
+  caption: string
+}
+
+const { id, url, caption } = Astro.props as Props
+---
+
+<div class="project__module">
+  <div class="project__video">
+    Video Block: {id}
+    <!-- TODO: need a utility method to parse the url to get the actual embed url -->
+    <!-- <iframe src={url}></iframe> -->
+  </div>
+
+  <!-- {caption && <div class="project__caption">{{ caption }}</div>} -->
+</div>

@@ -1,0 +1,16 @@
+---
+type Props = {
+  id: string
+  text: string
+}
+
+const { id, text } = Astro.props as Props
+---
+
+<div class="project__module">
+  <div class="project__text">
+    Text Block: {id}
+    <!-- TODO: need to convert serialized json data from rich text fields -->
+    <!-- <Fragment set:html={text} /> -->
+  </div>
+</div>

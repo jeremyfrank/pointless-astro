@@ -1,0 +1,31 @@
+---
+import Text from '@/blocks/Text/index.astro'
+import Image from '@/blocks/Image/index.astro'
+import Video from '@/blocks/Video/index.astro'
+
+type Props = {
+  blocks: any[]
+}
+
+const blockComponents = {
+  text: Text,
+  image: Image,
+  video: Video,
+}
+
+const { blocks } = Astro.props as Props
+---
+
+<Fragment>
+  {
+    blocks.map((block) => {
+      const { blockType } = block
+
+      if (blockType && blockType in blockComponents) {
+        const Block =
+          blockComponents[block.blockType as keyof typeof blockComponents]
+        return <Block {...block} />
+      }
+    })
+  }
+</Fragment>

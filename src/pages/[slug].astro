@@ -2,6 +2,7 @@
 import { format } from 'date-fns'
 import Layout from '@/layouts/Layout.astro'
 import MoreProjectsList from '@/components/MoreProjectsList.astro'
+import PageBlocks from '@/components/PageBlocks.astro'
 
 type Props = {
   // TODO: use generated Payload types here
@@ -43,6 +44,7 @@ const {
   textColor,
   linkColor,
   accentColor,
+  blocks,
 } = project
 
 const displayLogo = logo || icon || type.icon
@@ -109,15 +111,15 @@ const logoUrl = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${displayLogo.url}`
 
     <div class="project__description">
       <div class="text">
-        <!-- TODO: need to incorporate serializing json data from rich text fields -->
+        <!-- TODO: need to convert serialized json data from rich text fields -->
         <!-- <Fragment set:html={description} /> -->
       </div>
 
-      <!-- TODO: blocks -->
+      <PageBlocks blocks={blocks} />
+
       <!-- TODO: process -->
       <!-- TODO: related content -->
 
-      <!--  -->
       <MoreProjectsList />
     </div>
   </div>

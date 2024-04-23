@@ -1,0 +1,30 @@
+---
+type Props = {
+  id: string
+  image: {
+    url: string
+    caption: string
+  }
+}
+
+const { id, image } = Astro.props as Props
+const imageUrl = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}${image.url}`
+---
+
+<div class="project__module">
+  <figure class="project__example">
+    <img src={imageUrl} alt="" />
+
+    {
+      image.caption && (
+        <figcaption class="project__example__caption">
+          {image.caption}
+        </figcaption>
+      )
+    }
+
+    <div class="project__example__circle">
+      <!-- {{ craft.inlin.er('/assets/images/svgs/circle.svg') | raw }} -->
+    </div>
+  </figure>
+</div>
