@@ -1,15 +1,9 @@
 ---
+import { getProjectCollection } from '@/api'
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
-const url = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}/api/projects`
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-}
-const res = await fetch(url, options)
-const projects = await res.json()
+const projects = await getProjectCollection()
 ---
 
 <Layout title="Pointless Corp.">

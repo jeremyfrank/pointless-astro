@@ -13,6 +13,10 @@
     "@astrojs/check": "^0.5.10",
     "astro": "^4.6.3",
     "date-fns": "^3.6.0",
+    "qs": "^6.12.1",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.15"
   }
 }

@@ -1,25 +1,17 @@
 ---
 import { format } from 'date-fns'
+import type { Project } from '@/payload-types'
+import { getProjectCollection } from '@/api'
 import Layout from '@/layouts/Layout.astro'
 import MoreProjectsList from '@/components/MoreProjectsList.astro'
 import PageBlocks from '@/components/PageBlocks.astro'
 
 type Props = {
-  // TODO: use generated Payload types here
-  // project: Project
-  project: any
-}
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  project: Project
 }
 
 export async function getStaticPaths() {
-  const url = `${import.meta.env.ASTRO_PUBLIC_CMS_URL}/api/projects`
-  let data = await fetch(url)
-  let projects = await data.json()
+  const projects = await getProjectCollection()
 
   return projects.docs.map((project) => {
     return {
